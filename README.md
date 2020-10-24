@@ -8,7 +8,7 @@
 
 **всем привеет!**
 
-git commit --message=':bulb:'
+:crescent_moon:
 
 
 
