@@ -1,0 +1,79 @@
+import collections
+import math
+import os
+import re
+ 
+ 
+ 
+# функция rus_words принимает строку или список строк и формирует список русских слов
+ 
+def rus_words(text):
+    if type(text) is str:
+        text = [text]
+    words = []
+    for i in text:
+        words.extend(i.lower() for i in re.findall(r"[а-яё]+", i, re.I))
+    return words
+ 
+ 
+ 
+# функция read_text принимает имя файла и возвращает его содержимое как список слов
+ 
+def read_text(filename):
+    text = []
+    with open(filename, "r", encoding="utf-8") as f:
+        for line in f:
+            text.extend(rus_words(line))
+    return text
+ 
+ 
+ 
+# функция read_corpus принимает имя каталога и читает все файлы с расширением txt, формируя список текстов
+ 
+def read_corpus(dirname):
+    corpus = []
+    for root, dirs, files in os.walk(dirname):
+        for f in files:
+            if os.path.splitext(f)[1] == ".txt":
+                filename = os.path.join(root, f)
+                corpus.append(read_text(filename))
+    return corpus
+ 
+ 
+ 
+# функция tf принимает список слов и выдаёт словарь частот слов
+ 
+def tf(words):
+    d = collections.defaultdict(int)
+    for i in words:
+        d[i] += 1
+    for i in d:
+        d[i] /= len(words)
+    return d
+ 
+# функция idf принимает слово и список текстов и высчитывает IDF
+ 
+def idf(word, corpus):
+    return math.log(len(corpus) / sum(word in i for i in corpus))
+ 
+ 
+ 
+def tf_idf(corpus):
+    documents = []
+    for text in corpus:
+        documents.append({})
+        for word, freq in tf(text).items():
+            documents[-1][word] = freq * idf(word, corpus)
+    return documents
+ 
+ 
+ 
+dirname = input("Введите имя каталога: ")
+ 
+corpus = read_corpus(dirname)
+ 
+documents = tf_idf(corpus)
+ 
+for d in documents:
+    for word, freq in d.items():
+        print(f"{word}: {freq}")
