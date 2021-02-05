@@ -1,0 +1,36 @@
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer
+
+text = '''
+On Mothers Day I want to say- thank you to my best friends who let me mother them and in turn mother me. Thank you
+Lord for reminding me that we get to choose our family today and that we get to walk with our chosen sisters and take
+turns nurturing each other.
+'''
+tokens = word_tokenize(text)
+print('Результат токенизации на слова:')
+print(tokens)
+
+print('.............................................................................................................')
+stemsPorter = []       #Стеммер Портера
+porter = PorterStemmer()
+for w in tokens:
+    a = w
+    w = porter.stem(w)
+    if w != "":
+        stemsPorter.append(w)
+print('Результат после стемминга Портера:')
+print(stemsPorter)
+
+
+
+RESULT:
+Результат токенизации на слова:
+['On', 'Mothers', 'Day', 'I', 'want', 'to', 'say-', 'thank', 'you', 'to', 'my', 'best', 'friends', 'who', 'let', 'me', 'mother', 'them', 'and', 'in', 'turn', 'mother', 'me',
+'.', 'Thank', 'you', 'Lord', 'for', 'reminding', 'me', 'that', 'we', 'get', 'to', 'choose', 'our', 'family', 'today', 'and', 'that', 'we', 'get', 'to', 'walk', 'with', 'our',
+'chosen', 'sisters', 'and', 'take', 'turns', 'nurturing', 'each', 'other', '.']
+........................................................................................................................................................................................................
+Результат после стемминга Портера:
+['On', 'mother', 'day', 'I', 'want', 'to', 'say-', 'thank', 'you', 'to', 'my', 'best', 'friend', 'who', 'let', 'me', 'mother', 'them',
+'and', 'in', 'turn', 'mother', 'me', '.', 'thank', 'you', 'lord', 'for', 'remind', 'me', 'that', 'we', 'get', 'to', 'choos', 'our', 'famili',
+'today', 'and', 'that', 'we', 'get', 'to', 'walk', 'with', 'our', 'chosen', 'sister', 'and', 'take', 'turn', 'nurtur', 'each', 'other', '.']
