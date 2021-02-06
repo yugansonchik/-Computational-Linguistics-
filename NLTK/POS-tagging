@@ -8,9 +8,4 @@ print(nltk.pos_tag('''Закрыв измученные веки,
 
 
 RESULT:
-import nltk
-nltk.download('averaged_perceptron_tagger_ru')
-print(nltk.pos_tag('''Закрыв измученные веки,
-Миг, отошедший, берегу.
-О, если бы так стоять во веки
-На этом тихом берегу.'''.split(), lang = 'rus'))
+
