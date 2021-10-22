@@ -1,0 +1,64 @@
+import csv
+
+import re
+import os
+import io
+from os.path import join
+
+p1 = re.search(r'Цапкрюк(е|а|ом|у)?')
+p_1 = 'Цапкрюк'
+
+p2 = re.search(r'Гермион[а-я]{0,6}')
+p_2 = 'Гермиона'
+
+p3 = re.search(r'Д[а-я]мбл[а-я]{0,1}дор[а-я]{0,6}')
+p_3 = 'Думбльдор'
+
+Data = ["имя пероснажа", "все встретившиеся формы имени", "количество употреблений имени в разных формах в каждой книге"]
+ 
+myFile = open('results.csv', 'w')
+with myFile:
+    writer = csv.writer(myFile)
+    writer.writerows(Data)
+
+    
+textsFolder = []
+for root, dirs, files in os.walk('CORPUS'):
+    textsFolder.extend([join(root, file) for file in files if file.endswith('txt')])
+    dirs.clear()
+n = []
+for file in textsFolder:
+    with open(file,encoding="windows-1251", mode='r') as f:
+        for line in f:
+            if(p1, line) != None:
+                n.append(p1, line)
+print(len(n))
+
+k = []
+for file in textsFolder:
+    with open(file,encoding="windows-1251", mode='r') as f:
+        for line in f:
+            if(p2, line) != None:
+                n.append(p2, line)
+print(len(k))
+
+m = []
+for file in textsFolder:
+    with open(file,encoding="windows-1251", mode='r') as f:
+        for line in f:
+            if(p3, line) != None:
+                n.append(p3, line)
+print(len(m))
+
+ 
+
+
+with open('results.csv', 'a') as tables:
+    writer = csv.writer(tables, delimiter=",")
+
+    for character in [ p_1, p_2, p_3]:
+
+///
+
+                data_result = [pers, forms, sent]
+                writer.writerow(data_result)
